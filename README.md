@@ -1,5 +1,77 @@
-# Movie-Recommendation-System
+# Movie Recommendation System
 
-This project involves analyzing and utilizing the MovieLens 25M dataset, a rich collection of movie ratings and user-generated tags from the MovieLens recommendation service. The dataset contains over 25 million ratings and 1 million tag applications for more than 62,000 movies, contributed by 162,541 users between 1995 and 2019. The aim of the project is to explore, analyze, and develop models to enhance movie recommendations using this extensive dataset. Key components include understanding user preferences, identifying patterns in movie genres, and leveraging the tag genome for personalized recommendations. This project offers a valuable opportunity to apply machine learning and data analysis techniques to a large-scale real-world dataset.
+A movie recommendation system that uses collaborative filtering to suggest movies based on user preferences and movie similarities.
 
-Dataset : https://grouplens.org/datasets/movielens/
+## Features
+
+- Search for movies by title
+- Get personalized movie recommendations
+- Modern and responsive UI
+- Real-time search results
+
+## Setup
+
+### Backend Setup
+
+1. Navigate to the backend directory:
+```bash
+cd backend
+```
+
+2. Create a virtual environment and activate it:
+```bash
+python3 -m venv venv
+source venv/bin/activate  # On Windows use: venv\Scripts\activate
+```
+
+3. Install the required packages:
+```bash
+python3 -m pip install -r requirements.txt
+```
+
+4. Run the Flask server:
+```bash
+python3 app.py
+```
+
+The backend server will run on http://localhost:5000
+
+### Frontend Setup
+
+1. Navigate to the frontend directory:
+```bash
+cd frontend
+```
+
+2. Install the dependencies:
+```bash
+npm install
+```
+
+3. Start the development server:
+```bash
+npm run dev
+```
+
+The frontend will be available at http://localhost:5173
+
+## Usage
+
+1. Open your browser and go to http://localhost:5173
+2. Type a movie title in the search box (minimum 5 characters)
+3. Click on a movie from the search results to see recommendations
+4. View the recommended movies with their scores and genres
+
+## Technologies Used
+
+- Backend:
+  - Flask
+  - Pandas
+  - Scikit-learn
+  - NumPy
+
+- Frontend:
+  - React
+  - TypeScript
+  - Material-UI
+  - Axios
