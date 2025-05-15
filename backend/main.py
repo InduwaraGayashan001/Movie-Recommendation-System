@@ -1,7 +1,7 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field, validator
-from typing import List, Optional, Union
+from typing import List, Optional
 import pandas as pd
 import numpy as np
 from sklearn.feature_extraction.text import TfidfVectorizer
