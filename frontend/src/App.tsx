@@ -18,11 +18,9 @@ import {
   CssBaseline,
   Chip,
   Rating,
-  Tooltip
 } from '@mui/material'
 import SearchIcon from '@mui/icons-material/Search'
 import MovieIcon from '@mui/icons-material/Movie'
-import LocalMoviesIcon from '@mui/icons-material/LocalMovies'
 import axios from 'axios'
 import MovieDetails from './components/MovieDetails'
 import Layout from './Layout'
@@ -42,22 +40,10 @@ interface Movie {
   relevant_tags: string[] | null
 }
 
-interface Recommendation {
-  score: number
-  title: string
-  genres: string
-  poster_path: string | null
-}
-
 interface SearchResponse {
   movies: Movie[]
 }
 
-interface RecommendationResponse {
-  recommendations: Recommendation[]
-}
-
-// Create a dark theme
 const darkTheme = createTheme({
   palette: {
     mode: 'dark',
@@ -128,16 +114,6 @@ function SearchPage() {
     } finally {
       setIsSearching(false)
     }
-  }
-
-  const handleKeyPress = (event: React.KeyboardEvent) => {
-    if (event.key === 'Enter') {
-      handleSearch()
-    }
-  }
-
-  const handleMovieClick = (movieId: number) => {
-    navigate(`/movie/${movieId}`)
   }
 
   return (

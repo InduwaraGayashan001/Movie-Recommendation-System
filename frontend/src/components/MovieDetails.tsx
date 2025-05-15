@@ -12,19 +12,15 @@ import {
   Button,
   Paper,
   Chip,
-  Rating,
   Tooltip
 } from '@mui/material'
 import axios from 'axios'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 import StarIcon from '@mui/icons-material/Star'
-import StarBorderIcon from '@mui/icons-material/StarBorder'
 import MovieIcon from '@mui/icons-material/Movie'
 import AccessTimeIcon from '@mui/icons-material/AccessTime'
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday'
-import PeopleIcon from '@mui/icons-material/People'
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents'
-import LocalMoviesIcon from '@mui/icons-material/LocalMovies'
 import Layout from '../Layout.tsx'
 
 interface Movie {
