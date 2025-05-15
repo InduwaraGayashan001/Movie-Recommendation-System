@@ -120,9 +120,6 @@ try:
     logger.info("Data preparation complete!")
 
     # Load genome data
-    genome_scores = pd.read_csv('genome-scores.csv')
-    genome_tags = pd.read_csv('genome-tags.csv')
-    tags = pd.read_csv('tags.csv')
 except Exception as e:
     logger.error(f"Error during data preparation: {str(e)}")
     raise
@@ -168,21 +165,7 @@ def search(title: str) -> pd.DataFrame:
         similarity = cosine_similarity(query_vec, tfidf).flatten()
         indices = np.argpartition(similarity,-8)[-8:]
         results = movies.iloc[indices][::-1]
-        
-        # 2. Tag-based search
-        # Get relevant tags for the search query
-        query_tags = genome_tags[genome_tags['tag'].str.contains(title, case=False, na=False)]
-        if not query_tags.empty:
-            # Get movies with high relevance for these tags
-            tag_scores = genome_scores[genome_scores['tagId'].isin(query_tags['tagId'])]
-            movie_scores = tag_scores.groupby('movieId')['relevance'].mean().reset_index()
-            movie_scores = movie_scores.sort_values('relevance', ascending=False)
-            
-            # Get top movies from tag-based search
-            tag_based_movies = movies[movies['movieId'].isin(movie_scores['movieId'].head(8))]
-            
-            # Combine results from both searches
-            results = pd.concat([results, tag_based_movies]).drop_duplicates(subset=['movieId'])
+    
         
         # 3. Add TMDB details to results
         results['tmdb_details'] = results['tmdbId'].apply(lambda x: get_movie_poster(int(x)) if pd.notna(x) else None)
@@ -196,8 +179,6 @@ def search(title: str) -> pd.DataFrame:
         results['runtime'] = results['tmdb_details'].apply(lambda x: int(x['runtime']) if x and x['runtime'] is not None else None)
         results['director'] = results['tmdb_details'].apply(lambda x: x['director'] if x else None)
         
-        # 4. Add relevant tags for each movie
-        results['relevant_tags'] = results['movieId'].apply(lambda x: get_movie_tags(x))
         
         # Drop the temporary tmdb_details column
         results = results.drop('tmdb_details', axis=1)
@@ -220,26 +201,6 @@ def search(title: str) -> pd.DataFrame:
     except Exception as e:
         logger.error(f"Error in search function: {str(e)}")
         raise
-
-def get_movie_tags(movie_id: int) -> List[str]:
-    """Get relevant tags for a movie based on genome scores."""
-    try:
-        # Get top 5 tags by relevance score
-        movie_tags = genome_scores[genome_scores['movieId'] == movie_id]
-        movie_tags = movie_tags.sort_values('relevance', ascending=False).head(5)
-        
-        # Get tag names
-        tag_names = genome_tags[genome_tags['tagId'].isin(movie_tags['tagId'])]['tag'].tolist()
-        
-        # Add user tags if available
-        user_tags = tags[tags['movieId'] == movie_id]['tag'].unique().tolist()
-        tag_names.extend(user_tags)
-        
-        # Remove duplicates and return
-        return list(set(tag_names))
-    except Exception as e:
-        logger.error(f"Error getting tags for movie {movie_id}: {str(e)}")
-        return []
 
 def find_similar_movies(movie_id: int) -> pd.DataFrame:
     try:
