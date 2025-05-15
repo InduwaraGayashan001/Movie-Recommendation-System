@@ -25,6 +25,7 @@ import MovieIcon from '@mui/icons-material/Movie'
 import LocalMoviesIcon from '@mui/icons-material/LocalMovies'
 import axios from 'axios'
 import MovieDetails from './components/MovieDetails'
+import Layout from './Layout'
 
 interface Movie {
   movieId: number
@@ -140,76 +141,8 @@ function SearchPage() {
   }
 
   return (
-    <Box
-      sx={{
-        minHeight: '100vh',
-        backgroundSize: '100% auto',
-        backgroundPosition: 'top center',
-        backgroundAttachment: 'fixed',
-        position: 'relative',
-        '&::before': {
-          content: '""',
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          background: 'url("/images/image.png")',
-          backgroundSize: '100% auto',
-          backgroundPosition: 'top center',
-          backgroundRepeat: 'repeat-y',
-          opacity: 0.50,
-          zIndex: 0,
-        },
-      }}
-    >
-      <Paper 
-        elevation={3} 
-        sx={{ 
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          right: 0,
-          zIndex: 1000,
-          background: 'rgba(30, 30, 30, 0.95)',
-          backdropFilter: 'blur(10px)',
-          borderBottom: '1px solid rgba(255, 64, 129, 0.2)'
-        }}
-      >
-        <Container maxWidth="lg">
-          <Box sx={{ 
-            display: 'flex', 
-            alignItems: 'center', 
-            justifyContent: 'space-between',
-            py: 2
-          }}>
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-              <LocalMoviesIcon 
-                sx={{ 
-                  fontSize: 40,
-                  color: 'primary.main',
-                  filter: 'drop-shadow(0 0 8px rgba(255, 64, 129, 0.5))'
-                }} 
-              />
-              <Typography 
-                variant="h4" 
-                component="h1"
-                sx={{ 
-                  background: 'linear-gradient(45deg, #FF4081 30%, #FF9100 90%)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  fontWeight: 'bold',
-                  letterSpacing: '0.05em'
-                }}
-              >
-                CineMatch
-              </Typography>
-            </Box>
-          </Box>
-        </Container>
-      </Paper>
-
-      <Container maxWidth="lg" sx={{ py: 4, position: 'relative', zIndex: 1, mt: '80px' }}>
+    <Layout>
+      <Container maxWidth="lg" sx={{ py: 4 }}>
         <Paper 
           elevation={3} 
           sx={{ 
@@ -427,7 +360,7 @@ function SearchPage() {
           </Box>
         )}
       </Container>
-    </Box>
+    </Layout>
   )
 }
 

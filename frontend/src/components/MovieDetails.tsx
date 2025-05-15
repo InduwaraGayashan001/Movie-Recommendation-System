@@ -25,6 +25,7 @@ import CalendarTodayIcon from '@mui/icons-material/CalendarToday'
 import PeopleIcon from '@mui/icons-material/People'
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents'
 import LocalMoviesIcon from '@mui/icons-material/LocalMovies'
+import Layout from '../Layout.tsx'
 
 interface Movie {
   movieId: number
@@ -110,22 +111,26 @@ function MovieDetails() {
 
   if (loading) {
     return (
-      <Box display="flex" justifyContent="center" alignItems="center" minHeight="80vh">
-        <CircularProgress />
-      </Box>
+      <Layout>
+        <Box display="flex" justifyContent="center" alignItems="center" minHeight="80vh">
+          <CircularProgress />
+        </Box>
+      </Layout>
     )
   }
 
   if (error) {
     return (
-      <Container maxWidth="lg" sx={{ py: 4 }}>
-        <Alert severity="error" sx={{ mb: 2 }}>
-          {error}
-        </Alert>
-        <Button variant="contained" onClick={() => navigate('/')}>
-          Back to Search
-        </Button>
-      </Container>
+      <Layout>
+        <Container maxWidth="lg" sx={{ py: 4 }}>
+          <Alert severity="error" sx={{ mb: 2 }}>
+            {error}
+          </Alert>
+          <Button variant="contained" onClick={() => navigate('/')}>
+            Back to Search
+          </Button>
+        </Container>
+      </Layout>
     )
   }
 
@@ -136,91 +141,24 @@ function MovieDetails() {
   const { movie, recommendations } = movieDetails
 
   return (
-    <Box
-      sx={{
-        minHeight: '100vh',
-        backgroundSize: '100% auto',
-        backgroundPosition: 'top center',
-        backgroundAttachment: 'fixed',
-        position: 'relative',
-        '&::before': {
-          content: '""',
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          background: 'url("/images/image.png")',
-          backgroundSize: '100% auto',
-          backgroundPosition: 'top center',
-          backgroundRepeat: 'repeat-y',
-          opacity: 0.50,
-          zIndex: 0,
-        },
-      }}
-    >
-      <Paper 
-        elevation={3} 
-        sx={{ 
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          right: 0,
-          zIndex: 1000,
-          background: 'rgba(30, 30, 30, 0.95)',
-          backdropFilter: 'blur(10px)',
-          borderBottom: '1px solid rgba(255, 64, 129, 0.2)'
-        }}
-      >
-        <Container maxWidth="lg">
-          <Box sx={{ 
-            display: 'flex', 
-            alignItems: 'center', 
-            justifyContent: 'space-between',
-            py: 2
-          }}>
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-              <LocalMoviesIcon 
-                sx={{ 
-                  fontSize: 40,
-                  color: 'primary.main',
-                  filter: 'drop-shadow(0 0 8px rgba(255, 64, 129, 0.5))'
-                }} 
-              />
-              <Typography 
-                variant="h4" 
-                component="h1"
-                sx={{ 
-                  background: 'linear-gradient(45deg, #FF4081 30%, #FF9100 90%)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  fontWeight: 'bold',
-                  letterSpacing: '0.05em'
-                }}
-              >
-                CineMatch
-              </Typography>
-            </Box>
-            <Button 
-              variant="outlined" 
-              onClick={() => navigate('/')}
-              sx={{ 
-                color: 'primary.main',
-                borderColor: 'primary.main',
-                '&:hover': {
-                  borderColor: 'primary.main',
-                  backgroundColor: 'rgba(255, 64, 129, 0.1)',
-                }
-              }}
-              startIcon={<ArrowBackIcon />}
-            >
-              Back to Search
-            </Button>
-          </Box>
-        </Container>
-      </Paper>
-
-      <Container maxWidth="lg" sx={{ py: 4, position: 'relative', zIndex: 1, mt: '80px' }}>
+    <Layout>
+      <Container maxWidth="lg" sx={{ py: 4 }}>
+        <Button
+          variant="outlined"
+          startIcon={<ArrowBackIcon />}
+          onClick={() => navigate('/')}
+          sx={{
+            mb: 3,
+            color: 'primary.main',
+            borderColor: 'primary.main',
+            '&:hover': {
+              borderColor: 'primary.light',
+              backgroundColor: 'rgba(255, 64, 129, 0.1)',
+            }
+          }}
+        >
+          Back to Search
+        </Button>
         <Paper 
           elevation={3} 
           sx={{ 
@@ -229,13 +167,31 @@ function MovieDetails() {
             borderRadius: 2,
             background: 'rgba(30, 30, 30, 0.9)',
             backdropFilter: 'blur(10px)',
+            position: 'relative',
+            overflow: 'hidden',
+            '&::before': movie.poster_path ? {
+              content: '""',
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              background: `url(${movie.poster_path})`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              opacity: 0.1,
+              maskImage: 'radial-gradient(circle at center, black 20%, transparent 80%)',
+              zIndex: 0,
+            } : {},
           }}
         >
           <Box sx={{ 
             display: 'flex', 
             flexDirection: { xs: 'column', md: 'row' },
             gap: 4,
-            mt: 2
+            mt: 2,
+            position: 'relative',
+            zIndex: 1
           }}>
             <Box sx={{ 
               flex: { xs: '1 1 100%', md: '0 0 300px' },
@@ -545,7 +501,7 @@ function MovieDetails() {
           ))}
         </Box>
       </Container>
-    </Box>
+    </Layout>
   )
 }
 
