@@ -98,13 +98,6 @@ wheels/
 .installed.cfg
 *.egg
 
-# Data files
-*.csv
-*.json
-*.db
-*.sqlite3
-*.sqlite
-
 # Keep specific data files
 !movies.csv
 !ratings.csv
