@@ -21,6 +21,7 @@ import {
 } from '@mui/material'
 import SearchIcon from '@mui/icons-material/Search'
 import MovieIcon from '@mui/icons-material/Movie'
+import LocalMoviesIcon from '@mui/icons-material/LocalMovies'
 import axios from 'axios'
 import MovieDetails from './components/MovieDetails'
 import Layout from './Layout'
@@ -308,26 +309,60 @@ function SearchPage() {
         ) : (
           <Box sx={{ mt: 6, textAlign: 'center' }}>
             <Typography 
-              variant="h5" 
+              variant="h3" 
               sx={{ 
                 mb: 2,
-                background: 'linear-gradient(45deg, #FF4081 30%, #FF9100 90%)',
+                fontWeight: 'bold',
                 WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                fontWeight: 'bold'
+                WebkitTextFillColor: '#ff4081',
+                animation: 'fadeSlideIn 1.2s ease',
+                '@keyframes fadeSlideIn': {
+                  from: { opacity: 0, transform: 'translateY(40px)' },
+                  to: { opacity: 1, transform: 'translateY(0)' },
+                },
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: 2
               }}
             >
-              Welcome to CineMatch
+              Welcome to{' '}
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                <LocalMoviesIcon 
+                  sx={{ 
+                    fontSize: 50,
+                    color: 'primary.main',
+                    filter: 'drop-shadow(0 0 8px rgba(255, 64, 129, 0.5))'
+                  }} 
+                />
+                <Typography 
+                  variant="h3" 
+                  component="span"
+                  sx={{ 
+                    background: 'linear-gradient(45deg, #FF4081 30%, #FF9100 90%)',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    fontWeight: 'bold',
+                    letterSpacing: '0.05em'
+                  }}
+                >
+                  CineMatch
+                </Typography>
+              </Box>
             </Typography>
             <Typography 
               variant="h6" 
               sx={{ 
                 color: 'text.secondary',
-                maxWidth: '700px',
+                maxWidth: '1000px',
                 mx: 'auto',
-                lineHeight: 1.8,
                 letterSpacing: '0.02em',
-                fontWeight: 400
+                fontWeight: 400,
+                animation: 'fadeSlideIn 1.2s ease',
+                        '@keyframes fadeSlideIn': {
+                            from: { opacity: 0, transform: 'translateY(40px)' },
+                            to: { opacity: 1, transform: 'translateY(0)' },
+                        },
               }}
             >
               Discover your next favorite movie with our movie recommendation system. 
